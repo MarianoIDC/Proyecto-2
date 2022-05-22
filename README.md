@@ -32,7 +32,7 @@ docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e
 ```
 
 cd ..\consumer
-docker build . -t emotion-publisher:v1.0.0
+docker build . -t emotion-consumer:v1.0.0
 
 docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest -p 80:80 emotion-consumer:v1.0.0
 ```
