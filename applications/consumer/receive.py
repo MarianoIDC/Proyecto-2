@@ -2,7 +2,14 @@
 import pika, sys, os
 
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    PORT = os.getenv('RABBIT_PORT')
+    USER = os.getenv('RABBIT_USER')
+    PASSWORD = os.getenv('RABBIT_PASSWORD')
+    HOST = os.getenv('RABBIT_HOST')
+
+    credentials = pika.PlainCredentials(USER, PASSWORD)
+    parameters = pika.ConnectionParameters(HOST, PORT, '/', credentials)
+    connection = pika.BlockingConnection(parameters)
     channel = connection.channel()
 
     channel.queue_declare(queue='hello')
