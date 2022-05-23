@@ -1,10 +1,15 @@
 # RabbitMQ
 
-# run a standalone instance
+# Run a standalone instance
+
+```
 docker network create rabbits
 docker run -d --rm --net rabbits --hostname rabbit-1 --name rabbit-1 rabbitmq:3.8 
+```
 
-# clean up
+# Clean up
+
+```
 docker rm -f rabbit-1
 ```
 
@@ -24,7 +29,7 @@ docker exec -it rabbit-1 rabbitmq-plugins enable rabbitmq_management
 cd ..\publisher
 docker build . -t emotion-publisher:v1.0.0
 
-docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest -p 80:80 emotion-publisher:v1.0.0
+docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest emotion-publisher:v1.0.0
 ```
 
 # Message Consumer
@@ -37,4 +42,10 @@ docker build . -t emotion-consumer:v1.0.0
 docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest -p 80:80 emotion-consumer:v1.0.0
 ```
 
+# Clustering
 
+```
+minikube start
+kubectl create ns rabbits
+kubectl get storageclass
+```
