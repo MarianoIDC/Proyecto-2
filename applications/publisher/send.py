@@ -1,6 +1,4 @@
-import os
-import pika
-import os
+import os, pika, sys
 
 PORT = os.getenv('RABBIT_PORT')
 USER = os.getenv('RABBIT_USER')
@@ -12,11 +10,17 @@ parameters = pika.ConnectionParameters(HOST, PORT, '/', credentials)
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='task_queue', durable=True)
 
-channel.basic_publish(exchange='',
-                      routing_key='hello',
-                      body='Hello World!')
-print(" [x] Sent 'Hello World!'")
+message = ' '.join(sys.argv[1:]) or "Hello World!"
 
+channel.basic_publish(
+    exchange='',
+    routing_key='task_queue',
+    body=message,
+    properties=pika.BasicProperties(
+        delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
+    ))
+
+print(" [x] Sent %r" % message)
 connection.close()

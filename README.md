@@ -4,21 +4,21 @@
 
 ```
 docker network create rabbits
-docker run -d --rm --net rabbits --hostname rabbit-1 --name rabbit-1 rabbitmq:3.8 
+docker run -d --rm --net rabbits --hostname rabbit --name rabbit rabbitmq:3.8 
 ```
 
 # Clean up
 
 ```
-docker rm -f rabbit-1
+docker rm -f rabbit
 ```
 
 # Management
 
 ```
-docker run -d --rm --net rabbits -p 8080:15672 --hostname rabbit-1 --name rabbit-1 rabbitmq:3.8
-docker exec -it rabbit-1 bash
-docker exec -it rabbit-1 rabbitmq-plugins enable rabbitmq_management
+docker run -d --rm --net rabbits -p 8080:15672 --hostname rabbit --name rabbit rabbitmq:3.8
+docker exec -it rabbit bash
+docker exec -it rabbit rabbitmq-plugins enable rabbitmq_management
 
 ```
 
@@ -29,7 +29,7 @@ docker exec -it rabbit-1 rabbitmq-plugins enable rabbitmq_management
 cd ..\publisher
 docker build . -t emotion-publisher:v1.0.0
 
-docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest emotion-publisher:v1.0.0
+docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest emotion-publisher:v1.0.0
 ```
 
 # Message Consumer
@@ -39,7 +39,7 @@ docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e
 cd ..\consumer
 docker build . -t emotion-consumer:v1.0.0
 
-docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit-1 -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest -p 80:80 emotion-consumer:v1.0.0
+docker run -it --rm --net rabbits -e RABBIT_HOST=rabbit -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest -p 80:80 emotion-consumer:v1.0.0
 ```
 
 # Clustering
