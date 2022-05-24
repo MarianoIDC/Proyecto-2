@@ -4,6 +4,6 @@ WORKDIR /src
 
 RUN python3 -m pip install pika --upgrade
 
-COPY receive.py /src/
+COPY . /src/
 
 CMD ["python3", "./receive.py" ]

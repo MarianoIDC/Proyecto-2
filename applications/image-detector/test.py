@@ -1,12 +1,9 @@
 #La función fue creada basándose en la función explicada de la documentación oficial de Google Cloud Platform: https://cloud.google.com/vision/docs/detecting-faces?hl=es
 
-import os
-import io
+import os, io
 from google.cloud import vision
-import json
-import pprint
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'private-key.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'vision-private-key.json'
 #Instancia un cliente
 client = vision.ImageAnnotatorClient()
 
@@ -21,7 +18,6 @@ def detect_faces(path):
 	response = client.face_detection(image = image)
 	faces = response.face_annotations
 	#Enumeración de Google Cloud
-	print('Faces:')
 	for face in faces:
 		result = {
 			'Joy': face.joy_likelihood,
@@ -29,6 +25,6 @@ def detect_faces(path):
 			'Anger': face.anger_likelihood,
 			'Surprise': face.surprise_likelihood,
 		}
-		pprint(result)
+	return result
+	
 
-detect_faces("images.jpeg")
