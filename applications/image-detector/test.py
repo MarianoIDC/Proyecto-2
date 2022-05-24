@@ -3,6 +3,7 @@
 import os
 import io
 from google.cloud import vision
+import json
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'private-key.json'
 #Instancia un cliente
@@ -27,7 +28,6 @@ def detect_faces(path):
 			'Anger': face.anger_likelihood,
 			'Surprise': face.surprise_likelihood,
 		}
-		print(result)
+		print(json.dumps(result, indent=4, sort_keys=True))
 
 detect_faces("images.jpeg")
-print("POR AQUI PASO.........")
