@@ -19,7 +19,6 @@ WORKDIR /image-detector
 COPY . /image-detector/
 
 #COPY test.py /src/
-CMD ["/bin/bash"]
 #CMD ["python3", "./test.py" ]
 
 CMD ["python3", "./sendImage.py" ]

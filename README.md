@@ -48,3 +48,8 @@ docker exec -it emotion-consumer python3 ./receive.py
 docker stop image-detector; docker rm image-detector; docker rmi image-detector:service; docker build -t "image-detector:service" .; docker run -d --rm --net rabbits -e RABBIT_HOST=rabbit -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest --name image-detector image-detector:service tail -f /dev/null
 docker exec -it image-detector python3 ./sendImage.py
 ```
+# Create the output
+
+```
+docker stop result-saver; docker rm result-saver; docker rmi result-saver:service; docker build -t "result-saver:service" .; docker run -d -v /home/zuckerberg/Escritorio/Github/Proyecto-2/applications/result-saver/:/result-saver --rm --net rabbits -e RABBIT_HOST=rabbit -e RABBIT_PORT=5672 -e RABBIT_USER=guest -e RABBIT_PASSWORD=guest --name result-saver result-saver:service python3 output.py
+```

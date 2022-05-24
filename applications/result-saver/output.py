@@ -1,18 +1,12 @@
-import pika, sys, os, time
+import pika, sys, os, time, json
 
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body.decode())
     time.sleep(body.count(b'.'))
-    print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
-    message = "Goodbye World!"
-    ch.basic_publish(
-        exchange='',
-        routing_key='task_queue',
-        body=message,
-        properties=pika.BasicProperties(
-            delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
-    ))
+    message = body.decode()
+    with open('data.json', 'w') as f:
+        json.dump(message, f)
     ch.close()
 
 def main():
