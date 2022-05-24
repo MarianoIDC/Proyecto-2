@@ -4,11 +4,14 @@ WORKDIR /src
 
 RUN python3 -m pip install --upgrade google-cloud-vision
 
-COPY images.jpeg /src/
+#COPY images.jpeg /src/
+
+#RUN mkdir results
+WORKDIR /src/results
 
 #Se necesita arreglar esta línea
-#COPY ../proyecto1-luis-8153e212374a.json /src/
+COPY . /src/results
 
-COPY test.py /src/
+#COPY test.py /src/
 
 CMD ["python3", "./test.py" ]

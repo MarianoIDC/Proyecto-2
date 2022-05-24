@@ -4,11 +4,12 @@ import os
 import io
 from google.cloud import vision
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'proyecto1-luis-32c49b144187.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'private-key.json'
 #Instancia un cliente
 client = vision.ImageAnnotatorClient()
 
 def detect_faces(path):
+	
 	#Detección de rostros en una imagen
 	with io.open(path, 'rb') as image_file:
 		content = image_file.read()
@@ -29,3 +30,4 @@ def detect_faces(path):
 		print(result)
 
 detect_faces("images.jpeg")
+print("POR AQUI PASO.........")
