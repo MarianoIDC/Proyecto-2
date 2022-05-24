@@ -7,11 +7,15 @@ RUN python3 -m pip install --upgrade google-cloud-vision
 #COPY images.jpeg /src/
 
 #RUN mkdir results
-WORKDIR /src/results
+RUN mkdir image-detector
+WORKDIR /image-detector
+
+# RUN mkdir -p ./results/ \
+#     && chmod 775 ./results -R
 
 #Se necesita arreglar esta línea
-COPY . /src/results
+COPY . /image-detector/
 
 #COPY test.py /src/
-
-CMD ["python3", "./test.py" ]
+CMD ["/bin/bash"]
+#CMD ["python3", "./test.py" ]

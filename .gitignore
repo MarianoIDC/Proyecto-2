@@ -152,3 +152,5 @@ cython_debug/
 #.idea/
 applications/image-detector/proyecto1-luis-32c49b144187.json
 applications/image-detector/private-key.json
+applications/image-detector/results/filename.txt
+applications/image-detector/tresting.py
